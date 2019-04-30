@@ -1,0 +1,38 @@
+'AMAZON.NoIntent': function () {        
+        this.emitWithState('AMAZON.StartOverIntent');
+    },
+    'AMAZON.RepeatIntent': function () {
+        if (this.attributes.hasOwnProperty('spelt') && this.attributes['spelt'].length > 0) {
+            this.emitWithState('SpellingIntent');
+        } else {
+            this.emitWithState('AMAZON.StartOverIntent');
+        }
+    },
+    'AMAZON.PreviousIntent': function () {
+        this.emitWithState('AMAZON.CancelIntent');
+    },
+    'AMAZON.StopIntent': function () {
+        this.emitWithState('AMAZON.CancelIntent');
+    },
+    'AMAZON.StartOverIntent': function () {
+        delete(this.attributes['spelt']);
+        this.handler.state = states.MENUMODE;
+        this.emitWithState('AddWordIntent');
+    },
+    'AMAZON.CancelIntent': function () {
+        delete(this.attributes['spelt']);
+        this.handler.state = states.MENUMODE;
+        this.emitWithState('LaunchRequest');
+    },
+    SessionEndedRequest: function () {
+        delete(this.attributes['spelt']);
+        this.handler.state = states.MENUMODE;
+        this.emit(':saveState', true); // Save session attributes to DynamoDB 
+    },
+    'AMAZON.HelpIntent': function () {
+        if (this.attributes.hasOwnProperty('spelt') && this.attributes['spelt'].length > 0) {
+            this.emit(':ask', DIALOG.helpMenu + ' ' + util.format(DIALOG.confirmAddWordHelp, this.attributes['spelt']) + ' ' + DIALOG.cancelToMenu, DIALOG.confirmAddWordReprompt + ' ' + DIALOG.cancelToMenu);
+        } else {
+            this.emit(':ask', DIALOG.helpMenu + ' ' + DIALOG.addWord + ' ' + DIALOG.cancelToMenu, DIALOG.addWord + ' ' + DIALOG.cancelToMenu);
+        }
+    },
