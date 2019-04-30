@@ -1,0 +1,9 @@
+{
+    "welcome": "Hai riya, Welcome to Spell Master.",
+    "mainMenu": "Riya, You have added <say-as interpret-as=\"cardinal\">%d</say-as> word%s to your spelling list.",
+    "onBoarding": "To get started you will first need to add words to your spelling list. To do this, say, add word.",
+    "onBoardingReprompt": "Say, add word, to get started.",
+    "youCanSay": "You can say, start spelling test <break time=\"0.5s\"/>, add word <break time=\"0.5s\"/>, delete word <break time=\"0.5s\"/>, read spelling list <break time=\"0.5s\"/>, or delete spelling list <break time=\"0.5s\"/>. What would you like to do?",
+    "sorry": "Sorry, I didn't get that.",
+    "goodBye": "Ok riya, let's practice again soon. Good bye."
+    }
